@@ -10,9 +10,11 @@ import {
   Calendar, 
   Settings, 
   LogOut,
-  User
+  User,
+  TrendingUp,
+  Building
 } from 'lucide-react';
-import { signOut, canManageEmployees } from '@/lib/auth';
+import { signOut, canManageEmployees, isAdmin } from '@/lib/auth';
 import { useToast } from '@/hooks/use-toast';
 
 interface DashboardLayoutProps {
@@ -41,10 +43,14 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const navigationItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/attendance', label: 'Attendance', icon: Clock },
+    { href: '/leave-requests', label: 'Leave Requests', icon: Calendar },
     ...(canManageEmployees(profile?.role) ? [
       { href: '/employees', label: 'Employees', icon: Users },
+      { href: '/reports', label: 'Reports', icon: TrendingUp },
     ] : []),
-    { href: '/leave-requests', label: 'Leave Requests', icon: Calendar },
+    ...(isAdmin(profile?.role) ? [
+      { href: '/departments', label: 'Departments', icon: Building },
+    ] : []),
     { href: '/profile', label: 'Profile', icon: User },
     { href: '/settings', label: 'Settings', icon: Settings },
   ];

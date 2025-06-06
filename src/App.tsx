@@ -9,6 +9,11 @@ import AuthPage from "@/components/auth/AuthPage";
 import Dashboard from "@/pages/Dashboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import AttendancePage from "@/components/attendance/AttendancePage";
+import EmployeesPage from "@/components/employees/EmployeesPage";
+import ReportsPage from "@/components/reports/ReportsPage";
+import LeavePage from "@/components/leave/LeavePage";
+import DepartmentsPage from "@/components/departments/DepartmentsPage";
 
 const queryClient = new QueryClient();
 
@@ -41,14 +46,11 @@ const AppContent = () => {
           </ProtectedRoute>
         }
       />
-      {/* Placeholder routes for future pages */}
       <Route
         path="/attendance"
         element={
           <ProtectedRoute>
-            <div className="min-h-screen flex items-center justify-center">
-              <p>Attendance page - Coming soon!</p>
-            </div>
+            <AttendancePage />
           </ProtectedRoute>
         }
       />
@@ -56,9 +58,31 @@ const AppContent = () => {
         path="/employees"
         element={
           <ProtectedRoute requiredRole={['SUPERADMIN', 'ADMIN', 'HR', 'HOD', 'MANAGER']}>
-            <div className="min-h-screen flex items-center justify-center">
-              <p>Employee management page - Coming soon!</p>
-            </div>
+            <EmployeesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute requiredRole={['SUPERADMIN', 'ADMIN', 'HR', 'HOD', 'MANAGER']}>
+            <ReportsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/leave-requests"
+        element={
+          <ProtectedRoute>
+            <LeavePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/departments"
+        element={
+          <ProtectedRoute requiredRole={['SUPERADMIN', 'ADMIN', 'HR']}>
+            <DepartmentsPage />
           </ProtectedRoute>
         }
       />
